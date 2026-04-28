@@ -19,13 +19,14 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
 
-  # 2. 프론트엔드 (Static Site)
+  # 2. 프론트엔드 (Node.js Web Service)
   - type: web
     name: biorag-frontend
-    env: static
+    env: node
     buildCommand: cd frontend && npm install && npm run build
+    startCommand: npm run preview
     staticPublishPath: frontend/dist
     autoDeploy: true
     envVars:
       - key: VITE_API_BASE_URL
-        value: https://biorag-django.onrender.com
+        sync: false
