@@ -19,10 +19,12 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
 
-# 2. 프론트엔드 (별도 카테고리로 분리)
-static_sites:
-  - name: biorag-frontend
+  # 2. 프론트엔드 (Type을 web으로 설정하고 static: true 추가)
+  - type: web
+    name: biorag-frontend
     env: node
+    plan: free
+    static: true # 이 설정이 핵심입니다!
     buildCommand: cd frontend && npm install && npm run build
     publishPath: frontend/dist
     autoDeploy: true
