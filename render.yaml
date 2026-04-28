@@ -12,9 +12,8 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
 
-  - type: static_site
+  - type: static
     name: biorag-frontend
-    env: static
     buildCommand: cd frontend && npm install && npm run build
     publishPath: frontend/dist
     envVars:
