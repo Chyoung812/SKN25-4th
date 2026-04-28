@@ -1,22 +1,31 @@
 services:
+  # 1. 백엔드 (Django Docker)
   - type: web
     name: biorag-django
     env: docker
     dockerfilePath: backend/Dockerfile.django
+    region: singapore
+    plan: free
     autoDeploy: true
     envVars:
       - key: OPENAI_API_KEY
+        sync: false
       - key: NCBI_EMAIL
+        sync: false
       - key: NCBI_API_KEY
+        sync: false
       - key: TAVILY_API_KEY
+        sync: false
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
 
-  - type: static
-    name: biorag-frontend
+# 2. 프론트엔드 (별도 카테고리로 분리)
+static_sites:
+  - name: biorag-frontend
+    env: node
     buildCommand: cd frontend && npm install && npm run build
     publishPath: frontend/dist
+    autoDeploy: true
     envVars:
       - key: VITE_API_BASE_URL
-        # 실제 배포 시 Render 대시보드에 Django 서비스 도메인으로 설정하세요.
         value: https://biorag-django.onrender.com
