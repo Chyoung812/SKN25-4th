@@ -1,5 +1,5 @@
 services:
-  - type: web_service
+  - type: web
     name: biorag-django
     env: docker
     dockerfilePath: backend/Dockerfile.django
@@ -12,8 +12,8 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
 
-staticSites:
-  - name: biorag-frontend
+  - type: static_site
+    name: biorag-frontend
     env: static
     buildCommand: cd frontend && npm install && npm run build
     publishPath: frontend/dist
