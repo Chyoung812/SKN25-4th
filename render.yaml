@@ -19,12 +19,10 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
 
-  # 2. 프론트엔드 (Type을 web으로 설정하고 static: true 추가)
-  - type: web
+  # 2. 프론트엔드 (Static Site 전용 설정)
+  - type: static # 'web' 대신 'static'을 사용해야 publishPath가 인식됩니다.
     name: biorag-frontend
     env: node
-    plan: free
-    static: true # 이 설정이 핵심입니다!
     buildCommand: cd frontend && npm install && npm run build
     publishPath: frontend/dist
     autoDeploy: true
