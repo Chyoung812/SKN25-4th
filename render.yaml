@@ -1,0 +1,23 @@
+services:
+  - type: web_service
+    name: biorag-django
+    env: docker
+    dockerfilePath: backend/Dockerfile.django
+    autoDeploy: true
+    envVars:
+      - key: OPENAI_API_KEY
+      - key: NCBI_EMAIL
+      - key: NCBI_API_KEY
+      - key: TAVILY_API_KEY
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings
+
+staticSites:
+  - name: biorag-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    publishPath: frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        # 실제 배포 시 Render 대시보드에 Django 서비스 도메인으로 설정하세요.
+        value: https://biorag-django.onrender.com
