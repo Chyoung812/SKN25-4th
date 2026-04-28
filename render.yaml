@@ -19,12 +19,12 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings
 
-  # 2. 프론트엔드 (Static Site 전용 설정)
-  - type: static # 'web' 대신 'static'을 사용해야 publishPath가 인식됩니다.
+  # 2. 프론트엔드 (Static Site)
+  - type: web
     name: biorag-frontend
-    env: node
+    env: static
     buildCommand: cd frontend && npm install && npm run build
-    publishPath: frontend/dist
+    staticPublishPath: frontend/dist
     autoDeploy: true
     envVars:
       - key: VITE_API_BASE_URL
