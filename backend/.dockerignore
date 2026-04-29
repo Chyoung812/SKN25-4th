@@ -8,8 +8,7 @@ env
 .env
 .env.*
 !.env.sample
-*.sqlite3
-data/chroma
+db.sqlite3
 .git
 .gitignore
 .DS_Store
